@@ -2,7 +2,7 @@
 
 # API Cinema
 
-### Every request has a story.
+### See HTTP. Fix what breaks.
 
 An interactive HTTP playground. Send requests, watch the journey, and fix what breaks.
 
@@ -20,7 +20,7 @@ API errors are easier to understand when you can cause them, inspect them, and f
 
 ## Try this first
 
-1. Choose **Get past the velvet rope** under Director’s Challenges.
+1. Choose **Get past the velvet rope** under Practice Room.
 2. Send the request and inspect **401 Unauthorized**.
 3. Open the hint and add `"Authorization": "Bearer cinema-demo"` to the Headers JSON.
 4. Send again. See **200 OK** and solve the challenge.
@@ -115,4 +115,5 @@ Browser checks cover demo status codes, challenge success/failure, invalid token
 ## License
 
 [MIT](LICENSE).
+
 
