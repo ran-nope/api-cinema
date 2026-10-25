@@ -147,6 +147,9 @@ test('multi-request validators reject missing history and wrong resource IDs', (
   const attempts = solution('remember');
   attempts.at(-1).request.url = 'demo://api/projects/105';
   assert.equal(assess('remember', attempts).solved, false);
+  const pagination = solution('pagination');
+  pagination.at(-1).request.url = 'demo://api/catalog?limit=3&page=2';
+  assert.equal(assess('pagination', pagination).solved, true);
 });
 
 test('retry validators reject requests sent before Retry-After', () => {
