@@ -56,7 +56,8 @@
     }
     if (id === 'pagination') {
       const initial = after(a => ok(a, '/catalog') && a.response.data?.page === 1 && a.response.data?.limit === 3);
-      return { solved: !!initial && ok(last, '/catalog') && new URL(q.url).search === '?page=2&limit=3' && data?.page === 2 && data?.films?.[0]?.id === 4, stage: initial || data?.page === 1 ? 1 : 0, next: setup('/catalog?page=2&limit=3') };
+      const params = new URL(q.url).searchParams;
+      return { solved: !!initial && ok(last, '/catalog') && params.get('page') === '2' && params.get('limit') === '3' && data?.page === 2 && data?.limit === 3 && data?.films?.[0]?.id === 4, stage: initial || data?.page === 1 ? 1 : 0, next: setup('/catalog?page=2&limit=3') };
     }
     if (id === 'retry') {
       const blocked = valid.slice(0, -1).findLast(a => ok(a, '/limited', 429));
