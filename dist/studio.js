@@ -1,0 +1,3 @@
+$('#scenePicker').onclick=()=>{const expanded=$('#scenePicker').getAttribute('aria-expanded')!=='true';$('#scenePicker').setAttribute('aria-expanded',String(expanded));$('#scenes').classList.toggle('expanded',expanded);};
+document.querySelectorAll('.scene').forEach(el=>el.addEventListener('click',()=>{$('#scenes').classList.remove('expanded');$('#scenePicker').setAttribute('aria-expanded','false');}));
+document.querySelectorAll('[data-tab]').forEach((el,i,all)=>el.addEventListener('keydown',event=>{let next;if(event.key==='ArrowRight')next=(i+1)%all.length;if(event.key==='ArrowLeft')next=(i-1+all.length)%all.length;if(event.key==='Home')next=0;if(event.key==='End')next=all.length-1;if(next!==undefined){event.preventDefault();all[next].focus();all[next].click();}}));

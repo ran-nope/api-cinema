@@ -1,0 +1,11 @@
+self.addEventListener('install',()=>self.skipWaiting());
+self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));
+self.addEventListener('fetch',e=>{const url=new URL(e.request.url);if(url.origin!==self.location.origin||!url.pathname.includes('/__demo/'))return;e.respondWith(handle(e.request,url));});
+async function handle(req,url){const broken=url.searchParams.has('broken');const route=url.pathname.split('/__demo/')[1];let status=200,data,delay=260;
+ if(route==='slow'){delay=2300;data={message:'Good things take a little time.',processing_ms:2300,result:{report:'Weekly activity',completed:true}};if(broken){delay=3000;status=504;data={error:'gateway_timeout',message:'The upstream server did not respond in time.'};}}
+ else if(route==='private'){if(req.headers.get('Authorization')!=='Bearer cinema-demo'){status=401;data={error:'unauthorized',message:'Send Authorization: Bearer cinema-demo.'};}else data={id:42,name:'Alex Morgan',role:'developer',access:'granted'};}
+ else if(route==='projects'){if(req.method!=='POST'){status=405;data={error:'method_not_allowed',message:'Use POST to create a project.'};}else try{data=JSON.parse(await req.text());if(!data||typeof data.name!=='string'||!data.name.trim())throw Error();status=201;data={...data,id:104,created:true};}catch{status=400;data={error:'invalid_body',message:'Send valid JSON with a non-empty name field.'};}}
+ else if(route==='limited'){status=429;data={error:'rate_limit_exceeded',message:'Too many requests. Try again after 30 seconds.',retry_after:30};}
+ else if(route!=='users/1'||broken){status=404;data={error:'not_found',message:'No user exists at this endpoint. Try /users/1.'};}
+ else data={id:1,name:'Alex Morgan',username:'alexbuilds',email:'alex@example.com',skills:['JavaScript','Design','Curiosity'],workspace:{name:'Personal',projects:12,active:true}};
+ await new Promise(r=>setTimeout(r,delay));const headers={'Content-Type':'application/json; charset=utf-8','X-API-Cinema':'local-demo','Cache-Control':'no-store'};if(status===429)headers['Retry-After']='30';if(status===405)headers.Allow='POST';const statusText={200:'OK',201:'Created',400:'Bad Request',401:'Unauthorized',404:'Not Found',405:'Method Not Allowed',429:'Too Many Requests',504:'Gateway Timeout'}[status];return new Response(JSON.stringify(data),{status,statusText,headers});}
