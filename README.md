@@ -6,7 +6,7 @@
 
 An interactive HTTP playground. Send requests, watch the journey, and fix what breaks.
 
-[**Open the live playground →**](https://api-cinema-lab.bluebead69.chatgpt.site)
+[**Open the live playground →**](https://ran-nope.github.io/api-cinema/)
 
 **Vanilla JavaScript · Service Workers · Zero dependencies · MIT license**
 
@@ -106,7 +106,7 @@ server.cjs         Dependency-free local server
 
 ## Deploy
 
-Publish **dist/** on any HTTPS static host. No build step. Keep files together and serve sw.js as JavaScript. The supplied live demo uses Sites; the source also works with ordinary static hosting.
+Publish **dist/** on any HTTPS static host. No build step. Keep files together and serve sw.js as JavaScript. The live demo uses GitHub Pages. The workflow in .github/workflows/static.yml publishes dist/ whenever main is updated.
 
 ## Validation
 
@@ -115,5 +115,6 @@ Browser checks cover demo status codes, challenge success/failure, invalid token
 ## License
 
 [MIT](LICENSE).
+
 
 
