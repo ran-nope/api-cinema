@@ -15,7 +15,10 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  verify:
+    uses: ./.github/workflows/test.yml
   deploy:
+    needs: verify
     runs-on: ubuntu-latest
     environment:
       name: github-pages

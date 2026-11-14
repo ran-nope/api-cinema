@@ -1,0 +1,1 @@
+{"name":"api-cinema","private":true,"scripts":{"test":"node --test cinema.test.cjs","test:browser":"playwright test"},"devDependencies":{"@playwright/test":"1.58.2"}}

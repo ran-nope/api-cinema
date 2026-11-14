@@ -44,3 +44,7 @@ Copy as fetch works with the local demos on this page. Copy as cURL is for exter
 GitHub Pages publishes dist/ through .github/workflows/static.yml. The test workflow runs the Node checks on pushes and pull requests.
 
 [MIT license](LICENSE).
+
+## Source and browser verification
+
+`dist/` contains editable static source, not generated build output. There is no build step. Runtime needs no packages; browser tests require `npm ci`, `npx playwright install chromium`, then `npm run test:browser`. Run unit checks with `npm test`. Pages deployment depends on both suites passing.

@@ -1,7 +1,7 @@
 name: Check demo API and challenges
 
 on:
-  push:
+  workflow_call:
   pull_request:
 
 permissions:
@@ -16,3 +16,6 @@ jobs:
         with:
           node-version: '24'
       - run: node --test cinema.test.cjs
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser
